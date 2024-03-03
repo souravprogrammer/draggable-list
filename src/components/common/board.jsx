@@ -111,6 +111,7 @@ const Board = () => {
                   key={index}
                   data={columns?.[col?.name]}
                   title={col.name}
+                  setColumn={setColumns}
                 />
               );
             })}

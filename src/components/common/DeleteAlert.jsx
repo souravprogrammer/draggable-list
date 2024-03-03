@@ -12,16 +12,20 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useDeleteTodoMutation } from "@/redux/slices/todo.slice";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader } from "@/components/ui/loader";
 
 export function AlertDelete({ id }) {
   const [open, setOpen] = useState(false);
-  const [deleteTask] = useDeleteTodoMutation();
+  const [deleteTask, result] = useDeleteTodoMutation();
   const { toast } = useToast();
 
+  useEffect(() => {
+    console.log("delete ", result);
+  }, [result]);
   const deleteTaskHandler = async () => {
     try {
       const res = await deleteTask({ payload: { id: id } });
@@ -58,8 +62,14 @@ export function AlertDelete({ id }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={deleteTaskHandler}>
-            Continue
+          <AlertDialogAction
+            onClick={deleteTaskHandler}
+            disabled={result.isLoading}
+          >
+            <div className="flex items-center gap-1">
+              {result.isLoading ? <Loader /> : null}
+              {result.isLoading ? "deleting..." : "Continue"}
+            </div>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

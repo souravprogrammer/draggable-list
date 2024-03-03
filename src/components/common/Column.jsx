@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import AddDialouge from "./AddTastDialouge";
 import { IoMdMore } from "react-icons/io";
 
-function Column({ title, data, id }) {
+function Column({ title, data, id, setColumn }) {
   return (
     <div
       className="flex flex-col gap-1  min-w-[300px] md:min-w-[400px] h-[100%] "
@@ -41,7 +41,7 @@ function Column({ title, data, id }) {
         </div>
       </div>
       <div className="flex items-center justify-center p-4">
-        <AddDialouge columnId={id} />
+        <AddDialouge columnId={id} setColumn={setColumn} />
       </div>
     </div>
   );

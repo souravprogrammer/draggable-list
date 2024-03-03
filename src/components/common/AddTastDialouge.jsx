@@ -12,15 +12,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-function AddDialouge({ columnId }) {
+import { Loader } from "@/components/ui/loader";
+function AddDialouge({ columnId, setColumn }) {
   const [open, setOpen] = useState(false);
-  const [addTask] = useCreateTodoMutation();
+  const [addTask, result] = useCreateTodoMutation();
 
   const onSubmitAddTask = async (s) => {
     s.preventDefault();
     const formData = new FormData(s.target);
     const obj = Object.fromEntries(formData.entries());
-    addTask({ payload: { ...obj, order: 1000000 } });
+    await addTask({ payload: { ...obj, order: 1000000 } });
+    // its seems optimistic update
+    // setColumn((c) => {
+    //   return {
+    //     ...c,
+    //     [columnId]: [
+    //       ...c[columnId],
+    //       { ...obj, order: 1000000, createdAt: new Date() },
+    //     ],
+    //   };
+    // });
     setOpen(false);
   };
 
@@ -81,7 +92,12 @@ function AddDialouge({ columnId }) {
             </Button>
           </DialogClose>
 
-          <Button type="submit">Add Task</Button>
+          <Button type="submit" disabled={result.isLoading}>
+            <div className="flex items-center gap-1">
+              {result.isLoading ? <Loader /> : null}
+              {result.isLoading ? "Adding..." : "Add Task"}
+            </div>
+          </Button>
         </div>
       </form>
     </MyDialog>
