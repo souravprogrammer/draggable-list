@@ -18,9 +18,9 @@ const Board = () => {
   useEffect(() => {
     setColumns(todos);
   }, [todos]);
-  useEffect(() => {
-    console.log("col=> ", columnList);
-  }, [columnList]);
+  // useEffect(() => {
+  //   console.log("col=> ", columnList);
+  // }, [columnList]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;

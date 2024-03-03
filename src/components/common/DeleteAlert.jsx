@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,13 +15,31 @@ import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 
 import { useDeleteTodoMutation } from "@/redux/slices/todo.slice";
+import { useToast } from "@/components/ui/use-toast";
 
 export function AlertDelete({ id }) {
   const [open, setOpen] = useState(false);
   const [deleteTask] = useDeleteTodoMutation();
+  const { toast } = useToast();
+
   const deleteTaskHandler = async () => {
-    await deleteTask({ payload: { id: id } });
-    setOpen(false);
+    try {
+      const res = await deleteTask({ payload: { id: id } });
+      if (!res.error) {
+        toast({
+          title: "Task deleted",
+          description: "",
+        });
+      }
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "error",
+        description: err.message,
+      });
+    } finally {
+      setOpen(false);
+    }
   };
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>

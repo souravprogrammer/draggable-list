@@ -28,6 +28,11 @@ export async function POST(request) {
 
     return NextResponse.json({ data: colum });
   } catch (err) {
-    return NextResponse.json({ err: err.message });
+    return NextResponse.json(
+      { err: err.message },
+      {
+        status: 500,
+      }
+    );
   }
 }

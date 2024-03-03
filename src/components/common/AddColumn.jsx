@@ -5,17 +5,35 @@ import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateColumnMutation } from "@/redux/slices/todo.slice";
+import { useToast } from "@/components/ui/use-toast";
 
 function AddColumnDialog() {
   const [open, setOpen] = useState(false);
   const [addColumn] = useCreateColumnMutation();
+  const { toast } = useToast();
 
   const onSubmitColumn = async (s) => {
     s.preventDefault();
-    const formData = new FormData(s.target);
-    const obj = Object.fromEntries(formData.entries());
-    addColumn({ payload: { ...obj } });
-    setOpen(false);
+    try {
+      const formData = new FormData(s.target);
+      const obj = Object.fromEntries(formData.entries());
+      const res = await addColumn({ payload: { ...obj } });
+
+      if (res?.error?.status === 500) {
+        toast({
+          variant: "destructive",
+          title: "Duplicate Column",
+          description: "Column of this name Already exists",
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Scheduled: Catch up",
+        description: "Friday, February 10, 2023 at 5:57 PM",
+      });
+    } finally {
+      setOpen(false);
+    }
   };
 
   return (

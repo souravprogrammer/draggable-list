@@ -5,6 +5,7 @@ import { IoMdMore, IoMdHome } from "react-icons/io";
 import AddColumnDialog from "./AddColumn";
 
 function Header() {
+
   return (
     <header className="h-[75px] flex justify-between items-center p-6 bg-primary-foreground">
       <div className="flex items-center gap-2">
