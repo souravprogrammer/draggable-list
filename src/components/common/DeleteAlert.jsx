@@ -23,9 +23,6 @@ export function AlertDelete({ id }) {
   const [deleteTask, result] = useDeleteTodoMutation();
   const { toast } = useToast();
 
-  useEffect(() => {
-    console.log("delete ", result);
-  }, [result]);
   const deleteTaskHandler = async () => {
     try {
       const res = await deleteTask({ payload: { id: id } });

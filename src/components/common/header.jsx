@@ -9,16 +9,16 @@ function Header() {
   return (
     <header className="h-[75px] flex justify-between items-center p-6 bg-primary-foreground">
       <div className="flex items-center gap-2">
-        <Button variant="ghost">
+        <Button variant="ghost" className="hidden md:block">
           <IoMdMore className="h-[18px] w-[18px]" />
         </Button>
-        <Button variant="ghost">
+        <Button variant="ghost"className="hidden md:block">
           <IoMdHome className="h-[18px] w-[18px]" />
         </Button>
         <h4 className="font-bold">Todo Board</h4>
       </div>
       <div className="flex gap-4">
-        <Button variant="ghost" className="rounded-[50%] aspect-square">
+        <Button variant="ghost" className="rounded-[50%] aspect-square hidden md:block">
           <FaBell className="scale-150" />
         </Button>
 

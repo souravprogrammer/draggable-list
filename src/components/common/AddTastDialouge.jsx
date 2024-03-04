@@ -83,7 +83,7 @@ function AddDialouge({ columnId, setColumn }) {
           </div>
 
           <label className="font-semibold capitalize">Task</label>
-          <Input name="task" placeholder="write task here..." />
+          <Input name="task" placeholder="write task here..." required />
         </div>
         <div className="flex flex-row justify-end gap-4">
           <DialogClose asChild>

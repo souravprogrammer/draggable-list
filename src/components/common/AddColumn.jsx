@@ -46,7 +46,7 @@ function AddColumnDialog() {
       <form className="flex flex-col gap-4 w-[100%]" onSubmit={onSubmitColumn}>
         <div className="flex flex-col gap-2">
           <label className="font-semibold capitalize">Column Name</label>
-          <Input name="name" placeholder="write a name here..." />
+          <Input name="name" placeholder="write a name here..." required />
         </div>
         <div className="flex flex-row justify-end gap-4">
           <DialogClose asChild>
